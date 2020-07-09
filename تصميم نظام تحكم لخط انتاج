@@ -1,0 +1,45 @@
+#include <Servo.h>
+
+Servo moto1;
+Servo moto2;
+Servo moto3;
+int pin1=5;
+int pin2=9;
+int dis=0,cm=0;
+
+void setup()
+{
+ 
+  moto1.attach(3);
+  moto2.attach(6);
+  moto3.attach(11);
+  pinMode(pin1, OUTPUT);
+  pinMode(pin2,INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  
+  digitalWrite(pin1,LOW);
+  delayMicroseconds(2);
+ 
+  digitalWrite(pin1,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pin1,LOW);
+  
+ dis=pulseIn(pin2,HIGH);
+  cm=dis*0.034/2;
+  Serial.print("Distance");
+  Serial.println(cm);
+  if(cm<=100 && cm>30)
+  { moto1.write(-45);}
+  else if(cm<=200 && cm>100)
+  { moto2.write(90);}
+    else if(cm<=250 && cm>200)
+    { moto3.write(150);}
+  
+  
+  
+  
+}
